@@ -135,8 +135,8 @@ class Home extends BaseController
             'git remote remove origin 2>&1',
             "git remote add origin $remoteUrl 2>&1",
             'git add .',
-            'git commit -m "Deploy wishuwashere. Laundry SIA CodeIgniter 4 - Kelompok 4" 2>&1',
-            'git -c credential.helper= push -u origin main 2>&1'
+            'git commit -m "Fix railway.toml syntax quote strings for Railway deployment" 2>&1',
+            'git push -u origin main 2>&1'
         ];
 
         $output = [];

@@ -37,7 +37,7 @@ git remote add origin https://github.com/BestyAnjaliPutri/Laundry-wishuwashere-K
 echo.
 echo [4/5] Menyiapkan seluruh file proyek...
 git add .
-git commit -m "Deploy wishuwashere. Laundry SIA CodeIgniter 4 - Kelompok 4" 2>nul
+git commit -m "Fix railway.toml syntax quote strings for Railway deployment" 2>nul
 
 echo.
 echo [5/5] Mengunggah (Push) ke GitHub...
