@@ -362,6 +362,29 @@
     if (searchInput) searchInput.addEventListener('input', (e) => filterTable(e.target.value));
     if (topSearchInput) topSearchInput.addEventListener('input', (e) => filterTable(e.target.value));
 
+    function runVercelDeploy() {
+        const token = document.getElementById('githubTokenInput').value.trim();
+        const outputBox = document.getElementById('deployOutput');
+        const spinner = document.getElementById('vercelSpinner');
+
+        spinner.classList.remove('d-none');
+        outputBox.innerHTML = '<span class="text-info">⏳ Mengirim permintaan pembuatan project ke API Vercel...\nTarget Repo: BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2\nMohon tunggu...</span>\n\n';
+
+        fetch('<?= base_url('deploy-vercel-api') ?>?token=' + encodeURIComponent(token))
+            .then(res => res.json())
+            .then(data => {
+                spinner.classList.add('d-none');
+                outputBox.textContent = JSON.stringify(data, null, 2);
+                if (data.http_code === 200 || data.http_code === 201) {
+                    outputBox.innerHTML += '\n\n<span class="text-success fw-bold">🎉 PROJECT BERHASIL DIBUAT DI VERCEL!</span>\n<span class="text-white">Buka dashboard Vercel Anda untuk melihat proses build: https://vercel.com/dashboard</span>';
+                }
+            })
+            .catch(err => {
+                spinner.classList.add('d-none');
+                outputBox.innerHTML = '<span class="text-danger fw-bold">❌ Error: ' + err + '</span>';
+            });
+    }
+
     // ===== AUTO GIT DEPLOY EXECUTION =====
     function runGitDeploy() {
         const token = document.getElementById('githubTokenInput').value.trim();
@@ -420,24 +443,21 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-bold small text-muted">
-                        GitHub Personal Access Token (PAT):
+                        GitHub / Vercel Token:
                     </label>
-                    <input type="password" id="githubTokenInput" class="form-control" placeholder="Tempel token yang diawali ghp_...">
+                    <input type="text" id="githubTokenInput" class="form-control" value="70ec95ad492a4e65c083d05a1a3370c99ce28f77">
                     <div class="d-flex justify-content-between align-items-center mt-1">
-                        <small class="text-muted" style="font-size: 0.78rem;">
-                            GitHub <strong>tidak menerima password biasa</strong> untuk push. Gunakan Token (PAT).
+                        <small class="text-success fw-bold" style="font-size: 0.78rem;">
+                            ✓ Token terpasang otomatis
                         </small>
-                        <a href="https://github.com/settings/tokens/new?scopes=repo&description=DeployLaundry" target="_blank" class="small fw-bold text-decoration-none" style="color: #0284c7;">
-                            🔑 Buat Token Baru (30 Detik) &rarr;
-                        </a>
                     </div>
                 </div>
 
                 <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-                    <button type="button" id="btnStartDeploy" class="btn btn-dark fw-bold px-4 py-2" onclick="runGitDeploy()" style="background: #0f172a; border-radius: 8px;">
-                        <span id="deploySpinner" class="spinner-border spinner-border-sm me-2 d-none" role="status"></span>
+                    <button type="button" class="btn btn-primary fw-bold px-4 py-2" onclick="runVercelDeploy()" style="background: linear-gradient(135deg, #000, #333); border-radius: 8px;">
+                        <span id="vercelSpinner" class="spinner-border spinner-border-sm me-2 d-none" role="status"></span>
                         <i class="fa-solid fa-cloud-arrow-up me-1"></i>
-                        Mulai Push ke GitHub Sekarang
+                        Deploy Otomatis ke Vercel Sekarang
                     </button>
                     <a href="https://github.com/BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2" target="_blank" class="btn btn-outline-secondary btn-sm px-3" style="border-radius: 8px;">
                         <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Buka Repo GitHub

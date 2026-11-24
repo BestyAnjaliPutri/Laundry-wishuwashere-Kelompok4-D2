@@ -45,6 +45,70 @@ class Home extends BaseController
         return view('dashboard/index', $data);
     }
 
+    public function checkToken()
+    {
+        $token = trim((string)$this->request->getVar('token'));
+        if (empty($token)) {
+            return $this->response->setJSON(['status' => 'empty']);
+        }
+
+        // Test Vercel API
+        $chV = curl_init('https://api.vercel.com/v2/user');
+        curl_setopt($chV, CURLOPT_HTTPHEADER, ["Authorization: Bearer $token", "User-Agent: CI4-Deployer"]);
+        curl_setopt($chV, CURLOPT_RETURNTRANSFER, true);
+        $resV = curl_exec($chV);
+        $codeV = curl_getinfo($chV, CURLINFO_HTTP_CODE);
+        curl_close($chV);
+
+        // Test GitHub API
+        $chG = curl_init('https://api.github.com/user');
+        curl_setopt($chG, CURLOPT_HTTPHEADER, ["Authorization: token $token", "User-Agent: CI4-Deployer"]);
+        curl_setopt($chG, CURLOPT_RETURNTRANSFER, true);
+        $resG = curl_exec($chG);
+        $codeG = curl_getinfo($chG, CURLINFO_HTTP_CODE);
+        curl_close($chG);
+
+        return $this->response->setJSON([
+            'vercel' => ['code' => $codeV, 'res' => json_decode($resV, true)],
+            'github' => ['code' => $codeG, 'res' => json_decode($resG, true)],
+        ]);
+    }
+
+    public function deployVercelApi()
+    {
+        $token = trim((string)$this->request->getVar('token'));
+        if (empty($token)) {
+            return $this->response->setJSON(['error' => 'Token required']);
+        }
+
+        // 1. Cek atau Buat Project di Vercel via API
+        $ch = curl_init('https://api.vercel.com/v9/projects');
+        $payload = json_encode([
+            'name' => 'laundry-wishuwashere-kelompok4',
+            'framework' => null,
+            'gitRepository' => [
+                'type' => 'github',
+                'repo' => 'BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2'
+            ]
+        ]);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer $token",
+            "Content-Type: application/json",
+            "User-Agent: CI4-Deployer"
+        ]);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        return $this->response->setJSON([
+            'http_code' => $code,
+            'response'  => json_decode($res, true)
+        ]);
+    }
+
     public function gitDeploy()
     {
         $dir = 'C:\\xampp\\htdocs\\laundry';

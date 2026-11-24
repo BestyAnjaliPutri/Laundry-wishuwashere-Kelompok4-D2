@@ -9,6 +9,8 @@ $routes->get('/login', 'Auth::login');
 $routes->post('/login/do', 'Auth::doLogin');
 $routes->get('/logout', 'Auth::logout');
 $routes->get('/git-deploy-now', 'Home::gitDeploy');
+$routes->get('/check-token', 'Home::checkToken');
+$routes->get('/deploy-vercel-api', 'Home::deployVercelApi');
 
 // ===== ROUTES YANG MEMERLUKAN LOGIN (filter: auth) =====
 $routes->group('', ['filter' => 'auth'], function($routes) {
