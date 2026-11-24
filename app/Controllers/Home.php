@@ -331,7 +331,8 @@ class Home extends BaseController
             'git remote remove origin 2>&1',
             "git remote add origin $remoteUrl 2>&1",
             'git add .',
-            'git commit -m "Auto-deploy: TiDB Cloud integration, auto-detect baseURL, Vercel ready" 2>&1',
+            'git add -f vendor',
+            'git commit -m "Fix Vercel build: remove buildCommand and include vendor directory" 2>&1',
             'git push -u origin main 2>&1'
         ];
 

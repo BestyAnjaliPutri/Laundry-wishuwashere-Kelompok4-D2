@@ -3,9 +3,6 @@
 # Environment file (berisi password DB - JANGAN diupload!)
 .env
 
-# Vendor (diinstall ulang via composer)
-/vendor/
-
 # Writable directories (log, cache, session, upload)
 /writable/logs/*
 /writable/cache/*
