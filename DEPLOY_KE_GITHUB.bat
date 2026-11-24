@@ -1,24 +1,20 @@
 @echo off
 chcp 65001 >nul
 echo ========================================================
-echo   PUSH PERBAIKAN VERCEL BUILD KE GITHUB
+echo   PUSH PERBAIKAN VERCEL KE GITHUB
 echo   wishuwashere. Laundry Kelompok 4
 echo ========================================================
 
 cd /d C:\xampp\htdocs\laundry
 
-echo [1/4] Mengatur identitas Git...
-git config user.name "BestyAnjaliPutri"
-git config user.email "bestyanjali@gmail.com"
-
-echo [2/4] Menambahkan semua file termasuk vendor...
+echo [1/3] Menambahkan semua perubahan file...
 git add .
 git add -f vendor
 
-echo [3/4] Melakukan commit...
-git commit -m "Fix Vercel build: remove buildCommand and include vendor directory"
+echo [2/3] Melakukan commit...
+git commit -m "Fix Vercel: TiDB SSL cipher handshake, writable session temp dir, development env"
 
-echo [4/4] Mengirim (Push) ke GitHub main branch...
+echo [3/3] Mengirim (Push) ke GitHub main branch...
 set GCM_INTERACTIVE=never
 git push origin main
 

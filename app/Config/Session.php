@@ -125,4 +125,16 @@ class Session extends BaseConfig
      * seconds.
      */
     public int $lockMaxRetries = 300;
+
+    public function __construct()
+    {
+        parent::__construct();
+        if (getenv('VERCEL') || (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'vercel.app') !== false)) {
+            $sessPath = sys_get_temp_dir() . '/writable/session';
+            if (!is_dir($sessPath)) {
+                @mkdir($sessPath, 0777, true);
+            }
+            $this->savePath = $sessPath;
+        }
+    }
 }

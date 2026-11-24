@@ -79,8 +79,11 @@ class Database extends Config
             $this->default['username'] = getenv('MYSQLUSER') ?: '45S7bPdvjuyqytw.root';
             $this->default['password'] = getenv('MYSQLPASSWORD') ?: 'ILv3ndVtFmLLvqS2';
             $this->default['port']     = (int)(getenv('MYSQLPORT') ?: 4000);
-            $this->default['encrypt']  = ['ssl_verify' => false];
-            $this->default['DBDebug']  = false;
+            $this->default['encrypt']  = [
+                'ssl_verify' => false,
+                'ssl_cipher' => 'DEFAULT',
+            ];
+            $this->default['DBDebug']  = true;
         } else {
             // Konfigurasi Lokal XAMPP / Railway
             $this->default['hostname'] = getenv('MYSQLHOST')     ?: getenv('DB_HOST')     ?: env('database.default.hostname', 'localhost');

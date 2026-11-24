@@ -332,7 +332,7 @@ class Home extends BaseController
             "git remote add origin $remoteUrl 2>&1",
             'git add .',
             'git add -f vendor',
-            'git commit -m "Fix Vercel build: remove buildCommand and include vendor directory" 2>&1',
+            'git commit -m "Fix Vercel: TiDB SSL cipher handshake, writable session temp dir, development env" 2>&1',
             'git push -u origin main 2>&1'
         ];
 
