@@ -70,20 +70,32 @@ class Database extends Config
     {
         parent::__construct();
 
-        // Baca dari environment Railway / production
-        // Railway menyediakan MYSQLHOST, MYSQLDATABASE, MYSQLUSER, MYSQLPASSWORD, MYSQLPORT
-        $this->default['hostname'] = getenv('MYSQLHOST')     ?: getenv('DB_HOST')     ?: env('database.default.hostname', 'localhost');
-        $this->default['database'] = getenv('MYSQLDATABASE') ?: getenv('DB_NAME')     ?: env('database.default.database', 'db_laundry');
-        $this->default['username'] = getenv('MYSQLUSER')     ?: getenv('DB_USER')     ?: env('database.default.username', 'root');
-        $this->default['password'] = getenv('MYSQLPASSWORD') ?: getenv('DB_PASS')     ?: env('database.default.password', '');
-        $this->default['port']     = (int)(getenv('MYSQLPORT') ?: getenv('DB_PORT')   ?: env('database.default.port', 3306));
-        $this->default['DBDebug']  = (ENVIRONMENT !== 'production');
+        // Jika berjalan di Vercel, otomatis gunakan TiDB Cloud default
+        $isVercel = getenv('VERCEL') || isset($_SERVER['VERCEL']) || (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'vercel.app') !== false);
 
-        // Dukungan SSL otomatis untuk database cloud (TiDB Cloud, Aiven, Railway)
-        if (getenv('MYSQLSSL') || strpos((string)$this->default['hostname'], 'tidbcloud.com') !== false || strpos((string)$this->default['hostname'], 'aivencloud.com') !== false) {
-            $this->default['encrypt'] = [
-                'ssl_verify' => false
-            ];
+        if ($isVercel) {
+            $this->default['hostname'] = getenv('MYSQLHOST') ?: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
+            $this->default['database'] = getenv('MYSQLDATABASE') ?: 'db_laundry';
+            $this->default['username'] = getenv('MYSQLUSER') ?: '45S7bPdvjuyqytw.root';
+            $this->default['password'] = getenv('MYSQLPASSWORD') ?: 'ILv3ndVtFmLLvqS2';
+            $this->default['port']     = (int)(getenv('MYSQLPORT') ?: 4000);
+            $this->default['encrypt']  = ['ssl_verify' => false];
+            $this->default['DBDebug']  = false;
+        } else {
+            // Konfigurasi Lokal XAMPP / Railway
+            $this->default['hostname'] = getenv('MYSQLHOST')     ?: getenv('DB_HOST')     ?: env('database.default.hostname', 'localhost');
+            $this->default['database'] = getenv('MYSQLDATABASE') ?: getenv('DB_NAME')     ?: env('database.default.database', 'db_laundry');
+            $this->default['username'] = getenv('MYSQLUSER')     ?: getenv('DB_USER')     ?: env('database.default.username', 'root');
+            $this->default['password'] = getenv('MYSQLPASSWORD') ?: getenv('DB_PASS')     ?: env('database.default.password', '');
+            $this->default['port']     = (int)(getenv('MYSQLPORT') ?: getenv('DB_PORT')   ?: env('database.default.port', 3306));
+            $this->default['DBDebug']  = (ENVIRONMENT !== 'production');
+
+            // Dukungan SSL otomatis jika terhubung ke cloud
+            if (getenv('MYSQLSSL') || strpos((string)$this->default['hostname'], 'tidbcloud.com') !== false || strpos((string)$this->default['hostname'], 'aivencloud.com') !== false) {
+                $this->default['encrypt'] = [
+                    'ssl_verify' => false
+                ];
+            }
         }
     }
 }

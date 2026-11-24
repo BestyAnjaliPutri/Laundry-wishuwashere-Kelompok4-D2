@@ -57,7 +57,7 @@ class Paths
 
     public function __construct()
     {
-        if (getenv('VERCEL') || getenv('AWS_LAMBDA_FUNCTION_NAME')) {
+        if (getenv('VERCEL') || getenv('AWS_LAMBDA_FUNCTION_NAME') || (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'vercel.app') !== false)) {
             $this->writableDirectory = '/tmp/writable';
             if (!is_dir('/tmp/writable')) {
                 @mkdir('/tmp/writable/cache', 0777, true);

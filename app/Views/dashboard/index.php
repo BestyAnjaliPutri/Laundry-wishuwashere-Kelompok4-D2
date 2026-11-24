@@ -112,6 +112,10 @@
                         <i class="fa-solid fa-file-invoice-dollar"></i>
                         <span>Laporan Keuangan</span>
                     </a>
+                    <a href="<?= base_url('setup-tidb') ?>" target="_blank" class="btn btn-success d-flex align-items-center gap-2 px-3 py-2 fw-bold shadow-sm" style="border-radius: 8px; background: linear-gradient(135deg, #16a34a, #15803d); border: none;">
+                        <i class="fa-solid fa-database"></i>
+                        <span>☁️ Setup Database TiDB</span>
+                    </a>
                     <button type="button" class="btn btn-dark d-flex align-items-center gap-2 px-3 py-2 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#modalGitDeploy" style="border-radius: 8px; background: #0f172a;">
                         <i class="fa-brands fa-github"></i>
                         <span>🚀 Push ke GitHub &amp; Vercel</span>
