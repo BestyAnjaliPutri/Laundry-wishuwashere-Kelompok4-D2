@@ -420,15 +420,20 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-bold small text-muted">
-                        GitHub Personal Access Token (Opsional):
+                        GitHub Personal Access Token (PAT):
                     </label>
-                    <input type="password" id="githubTokenInput" class="form-control" placeholder="Biarkan kosong jika Git di komputer sudah terhubung">
-                    <small class="text-muted" style="font-size: 0.78rem;">
-                        Jika Git di komputer Anda belum pernah login, masukkan Personal Access Token (PAT) dari menu GitHub Settings &rarr; Developer Settings &rarr; Tokens.
-                    </small>
+                    <input type="password" id="githubTokenInput" class="form-control" placeholder="Tempel token yang diawali ghp_...">
+                    <div class="d-flex justify-content-between align-items-center mt-1">
+                        <small class="text-muted" style="font-size: 0.78rem;">
+                            GitHub <strong>tidak menerima password biasa</strong> untuk push. Gunakan Token (PAT).
+                        </small>
+                        <a href="https://github.com/settings/tokens/new?scopes=repo&description=DeployLaundry" target="_blank" class="small fw-bold text-decoration-none" style="color: #0284c7;">
+                            🔑 Buat Token Baru (30 Detik) &rarr;
+                        </a>
+                    </div>
                 </div>
 
-                <div class="d-flex align-items-center gap-2 mb-3">
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
                     <button type="button" id="btnStartDeploy" class="btn btn-dark fw-bold px-4 py-2" onclick="runGitDeploy()" style="background: #0f172a; border-radius: 8px;">
                         <span id="deploySpinner" class="spinner-border spinner-border-sm me-2 d-none" role="status"></span>
                         <i class="fa-solid fa-cloud-arrow-up me-1"></i>
@@ -437,6 +442,14 @@
                     <a href="https://github.com/BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2" target="_blank" class="btn btn-outline-secondary btn-sm px-3" style="border-radius: 8px;">
                         <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Buka Repo GitHub
                     </a>
+                </div>
+
+                <div class="p-2 mb-3 bg-light border rounded small text-dark d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-bolt text-warning fs-5"></i>
+                    <div>
+                        <strong>Cara Alternatif Paling Praktis (Tanpa Token):</strong><br>
+                        Buka folder <code>C:\xampp\htdocs\laundry</code> lalu <strong>klik ganda (double-click)</strong> file <code>DEPLOY_KE_GITHUB.bat</code>. Jendela login GitHub di browser akan langsung muncul otomatis!
+                    </div>
                 </div>
 
                 <label class="form-label fw-bold small text-muted">Terminal Output:</label>

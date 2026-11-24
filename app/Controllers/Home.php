@@ -50,9 +50,14 @@ class Home extends BaseController
         $dir = 'C:\\xampp\\htdocs\\laundry';
         chdir($dir);
 
+        // Matikan prompt interaktif agar Git TIDAK PERNAH HANG menunggu input
+        putenv('GIT_TERMINAL_PROMPT=0');
+        putenv('GCM_INTERACTIVE=never');
+
         $token = trim((string)$this->request->getVar('token'));
         if (!empty($token)) {
-            $remoteUrl = "https://{$token}@github.com/BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2.git";
+            // Jika token diisi, gunakan format https://username:token@github.com/...
+            $remoteUrl = "https://BestyAnjaliPutri:{$token}@github.com/BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2.git";
         } else {
             $remoteUrl = "https://github.com/BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2.git";
         }
@@ -67,15 +72,15 @@ class Home extends BaseController
             "git remote add origin $remoteUrl 2>&1",
             'git add .',
             'git commit -m "Deploy wishuwashere. Laundry SIA CodeIgniter 4 - Kelompok 4" 2>&1',
-            'git push -u origin main 2>&1'
+            'git -c credential.helper= push -u origin main 2>&1'
         ];
 
         $output = [];
         foreach ($cmds as $cmd) {
             $maskedCmd = preg_replace('/https:\/\/.*?@/', 'https://***@', $cmd);
-            $res = shell_exec($cmd . ' 2>&1');
+            $res = shell_exec($cmd);
             $maskedRes = preg_replace('/https:\/\/.*?@/', 'https://***@', (string)$res);
-            $output[] = "=== [CMD] $maskedCmd ===\n" . trim($maskedRes) . "\n";
+            $output[] = "=== [CMD] $maskedCmd ===\n" . (trim($maskedRes) ?: '(sukses / no output)') . "\n";
         }
 
         return $this->response->setContentType('text/plain')->setBody(implode("\n", $output));

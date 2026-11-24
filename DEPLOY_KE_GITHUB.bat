@@ -1,65 +1,53 @@
 @echo off
 chcp 65001 >nul
-title wishuwashere. Laundry — Deploy ke GitHub
+title wishuwashere. Laundry — Push ke GitHub BestyAnjaliPutri
 
 echo.
 echo ============================================================
-echo   wishuwashere. LAUNDRY — SETUP GITHUB
+echo   wishuwashere. LAUNDRY — PUSH KE GITHUB
+echo   Target: BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2
 echo ============================================================
 echo.
 
-:: Pindah ke folder proyek
 cd /d C:\xampp\htdocs\laundry
 
-echo [1/6] Cek instalasi Git...
+echo [1/5] Memeriksa Git...
 git --version
 IF ERRORLEVEL 1 (
-    echo.
-    echo [ERROR] Git belum terinstall!
-    echo Download di: https://git-scm.com/download/win
-    echo Setelah install Git, jalankan script ini lagi.
+    echo [ERROR] Git belum terpasang di komputer.
     pause
     exit /b
 )
 
 echo.
-echo [2/6] Masukkan informasi GitHub kamu:
-echo.
-set /p GIT_NAME="   Nama kamu (contoh: Wardiansyach): "
-set /p GIT_EMAIL="   Email GitHub kamu: "
-set /p REPO_URL="   URL repo GitHub (contoh: https://github.com/NAMA/laundry-wishuwashere.git): "
+echo [2/5] Mengatur identitas Git...
+git config user.name "BestyAnjaliPutri"
+git config user.email "bestyanjali@gmail.com"
+git config --add safe.directory C:/xampp/htdocs/laundry
 
 echo.
-echo [3/6] Konfigurasi Git...
-git config user.name "%GIT_NAME%"
-git config user.email "%GIT_EMAIL%"
-
-echo.
-echo [4/6] Inisialisasi Git repository...
-IF EXIST ".git" (
-    echo     [INFO] Repo sudah ada, skip init.
-) ELSE (
+echo [3/5] Menginisialisasi Git Repository...
+IF NOT EXIST ".git" (
     git init
-    echo     [OK] Git diinisialisasi.
+    git branch -M main
 )
-
-echo.
-echo [5/6] Menambahkan semua file dan commit...
-git add .
-git status --short
-git commit -m "Initial commit: wishuwashere. Laundry SIA CI4 - Kelompok 4"
-
-echo.
-echo [6/6] Push ke GitHub...
 git remote remove origin 2>nul
-git remote add origin %REPO_URL%
-git branch -M main
+git remote add origin https://github.com/BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2.git
+
+echo.
+echo [4/5] Menyiapkan seluruh file proyek...
+git add .
+git commit -m "Deploy wishuwashere. Laundry SIA CodeIgniter 4 - Kelompok 4" 2>nul
+
+echo.
+echo [5/5] Mengunggah (Push) ke GitHub...
+echo (Jika muncul jendela browser, silakan klik 'Sign in with browser' / 'Authorize')
+echo.
 git push -u origin main
 
 echo.
 echo ============================================================
-echo   SELESAI! Cek repo kamu di GitHub.
-echo   Sekarang lanjut ke Railway: https://railway.app
+echo   SELESAI! Silakan refresh halaman GitHub Anda di browser!
 echo ============================================================
 echo.
 pause
