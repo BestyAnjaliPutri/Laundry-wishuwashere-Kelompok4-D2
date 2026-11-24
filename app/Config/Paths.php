@@ -55,6 +55,19 @@ class Paths
      */
     public string $writableDirectory = __DIR__ . '/../../writable';
 
+    public function __construct()
+    {
+        if (getenv('VERCEL') || getenv('AWS_LAMBDA_FUNCTION_NAME')) {
+            $this->writableDirectory = '/tmp/writable';
+            if (!is_dir('/tmp/writable')) {
+                @mkdir('/tmp/writable/cache', 0777, true);
+                @mkdir('/tmp/writable/logs', 0777, true);
+                @mkdir('/tmp/writable/session', 0777, true);
+                @mkdir('/tmp/writable/uploads', 0777, true);
+            }
+        }
+    }
+
     /**
      * ---------------------------------------------------------------
      * TESTS DIRECTORY NAME

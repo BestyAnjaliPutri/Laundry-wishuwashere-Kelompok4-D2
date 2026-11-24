@@ -1,0 +1,9 @@
+[PHP]
+engine = php
+documentRoot = public
+
+[BUILD]
+builder = NIXPACKS
+
+[DEPLOY]
+startCommand = php -S 0.0.0.0:$PORT -t public public/index.php

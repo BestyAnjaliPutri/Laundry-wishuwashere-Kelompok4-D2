@@ -19,6 +19,19 @@ class App extends BaseConfig
     public string $baseURL = 'http://localhost:8080/';
 
     /**
+     * Railway / Production URL override via environment variable.
+     * Set APP_URL in Railway environment variables.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $appUrl = getenv('APP_URL') ?: env('app.baseURL');
+        if (!empty($appUrl)) {
+            $this->baseURL = rtrim($appUrl, '/') . '/';
+        }
+    }
+
+    /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
      * If you want to accept multiple Hostnames, set this.
      *
