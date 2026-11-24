@@ -25,8 +25,13 @@ class App extends BaseConfig
     public function __construct()
     {
         parent::__construct();
-        $appUrl = getenv('APP_URL') ?: env('app.baseURL');
-        if (!empty($appUrl)) {
+
+        // Otomatis deteksi domain aktif (Vercel, Railway, atau Localhost)
+        // Mencegah redirect kembali ke localhost saat dibuka online
+        if (!empty($_SERVER['HTTP_HOST'])) {
+            $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https') ? 'https://' : 'http://';
+            $this->baseURL = $proto . $_SERVER['HTTP_HOST'] . '/';
+        } elseif ($appUrl = getenv('APP_URL') ?: env('app.baseURL')) {
             $this->baseURL = rtrim($appUrl, '/') . '/';
         }
     }

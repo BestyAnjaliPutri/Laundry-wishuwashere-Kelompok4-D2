@@ -78,5 +78,12 @@ class Database extends Config
         $this->default['password'] = getenv('MYSQLPASSWORD') ?: getenv('DB_PASS')     ?: env('database.default.password', '');
         $this->default['port']     = (int)(getenv('MYSQLPORT') ?: getenv('DB_PORT')   ?: env('database.default.port', 3306));
         $this->default['DBDebug']  = (ENVIRONMENT !== 'production');
+
+        // Dukungan SSL otomatis untuk database cloud (TiDB Cloud, Aiven, Railway)
+        if (getenv('MYSQLSSL') || strpos((string)$this->default['hostname'], 'tidbcloud.com') !== false || strpos((string)$this->default['hostname'], 'aivencloud.com') !== false) {
+            $this->default['encrypt'] = [
+                'ssl_verify' => false
+            ];
+        }
     }
 }

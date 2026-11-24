@@ -37,7 +37,7 @@ git remote add origin https://github.com/BestyAnjaliPutri/Laundry-wishuwashere-K
 echo.
 echo [4/5] Menyiapkan seluruh file proyek...
 git add .
-git commit -m "Fix railway.toml syntax quote strings for Railway deployment" 2>nul
+git commit -m "Fix baseURL dynamic host detection and Vercel build configuration" 2>nul
 
 echo.
 echo [5/5] Mengunggah (Push) ke GitHub...
