@@ -18,6 +18,42 @@ class Auth extends BaseController
     private function ensureDefaultUsers()
     {
         try {
+            $db = \Config\Database::connect();
+
+            // Cek apakah tabel users sudah ada
+            $tables = $db->listTables();
+            if (!in_array('users', $tables)) {
+                // 1. Baca dan jalankan database_railway.sql jika ada
+                $sqlFile = FCPATH . '../database_railway.sql';
+                if (!file_exists($sqlFile)) {
+                    $sqlFile = 'C:\\xampp\\htdocs\\laundry\\database_railway.sql';
+                }
+
+                if (file_exists($sqlFile)) {
+                    $sql = file_get_contents($sqlFile);
+                    $sql = str_replace("\r\n", "\n", $sql);
+                    $queries = explode(";\n", $sql);
+                    foreach ($queries as $q) {
+                        $q = trim($q);
+                        if (!empty($q) && substr($q, 0, 2) !== '--') {
+                            try { $db->query($q); } catch (\Throwable $ex) {}
+                        }
+                    }
+                } else {
+                    // Fallback pembuatan tabel esensial langsung
+                    $db->query("CREATE TABLE IF NOT EXISTS `users` (
+                      `id` INT AUTO_INCREMENT PRIMARY KEY,
+                      `username` VARCHAR(50) NOT NULL UNIQUE,
+                      `password_hash` VARCHAR(255) NOT NULL,
+                      `name` VARCHAR(100) NOT NULL,
+                      `role` ENUM('admin', 'operator') DEFAULT 'operator',
+                      `created_at` DATETIME NULL,
+                      `updated_at` DATETIME NULL
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+                }
+            }
+
+            // Pastikan akun default kelompok 4 dan admin tersedia
             $userModel = new UserModel();
             $count = $userModel->countAllResults();
             if ($count === 0) {
@@ -43,7 +79,7 @@ class Auth extends BaseController
                 $userModel->insertBatch($defaultUsers);
             }
         } catch (\Throwable $e) {
-            // Ignore if table not yet migrated
+            log_message('error', 'Auto-migrate error: ' . $e->getMessage());
         }
     }
 
