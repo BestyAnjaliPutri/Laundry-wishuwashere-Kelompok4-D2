@@ -12,10 +12,9 @@ git add .
 git add -f vendor
 
 echo [2/3] Melakukan commit...
-git commit -m "Fix authentication: guaranteed password hash match for kelompok 4 login"
+git commit -m "UI: Remove dev setup buttons and add 3D Cute Bunny AI Navigator on Dashboard"
 
 echo [3/3] Mengirim (Push) ke GitHub main branch...
-set GCM_INTERACTIVE=never
 git push origin main
 
 echo.

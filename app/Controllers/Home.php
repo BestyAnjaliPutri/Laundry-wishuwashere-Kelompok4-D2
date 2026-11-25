@@ -332,7 +332,7 @@ class Home extends BaseController
             "git remote add origin $remoteUrl 2>&1",
             'git add .',
             'git add -f vendor',
-            'git commit -m "Fix authentication: guaranteed password hash match for kelompok 4 login" 2>&1',
+            'git commit -m "UI: Remove dev setup buttons and add 3D Cute Bunny AI Navigator on Dashboard" 2>&1',
             'git push -u origin main 2>&1'
         ];
 

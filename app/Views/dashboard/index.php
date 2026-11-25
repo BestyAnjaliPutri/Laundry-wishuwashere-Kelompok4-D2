@@ -112,46 +112,348 @@
                         <i class="fa-solid fa-file-invoice-dollar"></i>
                         <span>Laporan Keuangan</span>
                     </a>
-                    <a href="<?= base_url('setup-tidb') ?>" target="_blank" class="btn btn-success d-flex align-items-center gap-2 px-3 py-2 fw-bold shadow-sm" style="border-radius: 8px; background: linear-gradient(135deg, #16a34a, #15803d); border: none;">
-                        <i class="fa-solid fa-database"></i>
-                        <span>☁️ Setup Database TiDB</span>
-                    </a>
-                    <button type="button" class="btn btn-dark d-flex align-items-center gap-2 px-3 py-2 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#modalGitDeploy" style="border-radius: 8px; background: #0f172a;">
-                        <i class="fa-brands fa-github"></i>
-                        <span>🚀 Push ke GitHub &amp; Vercel</span>
-                    </button>
                 </div>
             </div>
 
-            <!-- Kolom Kanan Hero: Widget Operator Laundry -->
+            <!-- Kolom Kanan Hero: 3D Cute Bunny AI Assistant & Navigator -->
             <div class="col-12 col-xl-4">
-                <div class="card p-3 border-2 text-center" style="background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%); border-color: #bae6fd !important;">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <small class="fw-bold" style="color: #0284c7;">
-                            <i class="fa-solid fa-shield-cat me-1"></i> OPERATOR // ADMIN
-                        </small>
-                        <span class="badge bg-warning text-dark">
-                            <i class="fa-solid fa-star me-1"></i> AKTIF
-                        </span>
-                    </div>
-                    
-                    <div class="py-2">
-                        <!-- Icon Mesin Cuci Berputar Lucu -->
-                        <div class="position-relative d-inline-block mb-2">
-                            <div class="p-3 border border-2 border-info d-inline-flex align-items-center justify-content-center" style="width: 78px; height: 78px; background: #e0f2fe;">
-                                <i class="fa-solid fa-compact-disc anim-wash text-primary" style="font-size: 2.8rem;"></i>
-                            </div>
-                            <span class="position-absolute top-0 start-100 translate-middle badge border border-light bg-info p-1" style="border-radius: 50% !important;">🫧</span>
-                        </div>
-                        <h5 class="fw-bold text-dark mb-0">wishuwashere.</h5>
-                        <small class="text-secondary fw-semibold">100% READY &amp; ACTIVE 🧺</small>
-                    </div>
+                <style>
+                    /* ===== 3D CUTE BUNNY AI NAVIGATOR STYLES ===== */
+                    .bunny-card-container {
+                        perspective: 1000px;
+                    }
+                    .bunny-ai-card {
+                        background: linear-gradient(145deg, #ffffff 0%, #f0f9ff 60%, #e0f2fe 100%);
+                        border: 2px solid #bae6fd !important;
+                        border-radius: 20px !important;
+                        box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.12), 0 8px 10px -6px rgba(2, 132, 199, 0.08);
+                        position: relative;
+                        overflow: hidden;
+                        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+                        transform-style: preserve-3d;
+                    }
+                    .bunny-ai-card:hover {
+                        transform: translateY(-4px) rotateX(2deg) rotateY(-2deg);
+                        box-shadow: 0 16px 32px -6px rgba(2, 132, 199, 0.2), 0 10px 14px -6px rgba(2, 132, 199, 0.12);
+                        border-color: #7dd3fc !important;
+                    }
+                    /* Glow Ambient Background */
+                    .bunny-glow-bg {
+                        position: absolute;
+                        top: -30px;
+                        right: -30px;
+                        width: 140px;
+                        height: 140px;
+                        background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(244, 114, 182, 0.15) 50%, transparent 70%);
+                        border-radius: 50%;
+                        filter: blur(20px);
+                        pointer-events: none;
+                        z-index: 1;
+                    }
+                    /* 3D Bunny Character Floating Animation */
+                    .bunny-3d-wrapper {
+                        position: relative;
+                        display: inline-block;
+                        cursor: pointer;
+                        user-select: none;
+                        transition: transform 0.25s ease;
+                    }
+                    .bunny-3d-wrapper:hover {
+                        transform: scale(1.08);
+                    }
+                    .bunny-3d-wrapper:active {
+                        transform: scale(0.95);
+                    }
+                    .anim-bunny-float {
+                        animation: bunnyFloat 3.6s ease-in-out infinite;
+                        transform-origin: center bottom;
+                    }
+                    .anim-bunny-ear-left {
+                        transform-origin: 40px 65px;
+                        animation: earWiggleLeft 4.2s ease-in-out infinite;
+                    }
+                    .anim-bunny-ear-right {
+                        transform-origin: 80px 65px;
+                        animation: earWiggleRight 4.8s ease-in-out infinite;
+                    }
+                    .anim-bunny-eyes {
+                        animation: bunnyBlink 4.5s infinite;
+                        transform-origin: center;
+                    }
+                    .anim-bunny-cheeks {
+                        animation: cheekBlush 2.5s ease-in-out infinite alternate;
+                    }
+                    /* Floating Bubbles */
+                    .bubble-particle {
+                        position: absolute;
+                        border-radius: 50%;
+                        background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(56, 189, 248, 0.4) 60%, rgba(14, 165, 233, 0.8) 100%);
+                        box-shadow: 0 2px 6px rgba(14, 165, 233, 0.25), inset -2px -2px 4px rgba(255, 255, 255, 0.6);
+                        pointer-events: none;
+                    }
+                    .bubble-1 {
+                        width: 16px;
+                        height: 16px;
+                        top: 25px;
+                        left: 15px;
+                        animation: floatBubble 3.2s ease-in-out infinite;
+                    }
+                    .bubble-2 {
+                        width: 22px;
+                        height: 22px;
+                        top: 15px;
+                        right: 20px;
+                        animation: floatBubble 4s ease-in-out 1s infinite;
+                    }
+                    .bubble-3 {
+                        width: 12px;
+                        height: 12px;
+                        bottom: 40px;
+                        right: 15px;
+                        animation: floatBubble 2.8s ease-in-out 0.5s infinite;
+                    }
+                    /* Keyframes */
+                    @keyframes bunnyFloat {
+                        0%, 100% { transform: translateY(0px) rotate(0deg); }
+                        50% { transform: translateY(-7px) rotate(1.5deg); }
+                    }
+                    @keyframes earWiggleLeft {
+                        0%, 85%, 100% { transform: rotate(0deg); }
+                        90% { transform: rotate(-8deg); }
+                        95% { transform: rotate(4deg); }
+                    }
+                    @keyframes earWiggleRight {
+                        0%, 82%, 100% { transform: rotate(0deg); }
+                        88% { transform: rotate(9deg); }
+                        94% { transform: rotate(-3deg); }
+                    }
+                    @keyframes bunnyBlink {
+                        0%, 94%, 98%, 100% { transform: scaleY(1); }
+                        96% { transform: scaleY(0.08); }
+                    }
+                    @keyframes cheekBlush {
+                        0% { opacity: 0.75; transform: scale(0.95); }
+                        100% { opacity: 1; transform: scale(1.05); }
+                    }
+                    @keyframes floatBubble {
+                        0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.8; }
+                        50% { transform: translateY(-10px) translateX(4px); opacity: 1; }
+                    }
+                    /* Speech Bubble */
+                    .bunny-speech-bubble {
+                        background: #ffffff;
+                        border: 1.5px solid #bae6fd;
+                        border-radius: 14px;
+                        padding: 8px 12px;
+                        position: relative;
+                        font-size: 0.82rem;
+                        color: #0369a1;
+                        font-weight: 600;
+                        line-height: 1.35;
+                        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+                        transition: all 0.3s ease;
+                    }
+                    .bunny-speech-bubble::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -7px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        border-width: 7px 7px 0;
+                        border-style: solid;
+                        border-color: #ffffff transparent;
+                        display: block;
+                        width: 0;
+                    }
+                    .bunny-speech-bubble::before {
+                        content: '';
+                        position: absolute;
+                        bottom: -9px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        border-width: 8px 8px 0;
+                        border-style: solid;
+                        border-color: #bae6fd transparent;
+                        display: block;
+                        width: 0;
+                    }
+                    /* Mini Navigator Pills */
+                    .bunny-nav-pill {
+                        background: #ffffff;
+                        border: 1px solid #bae6fd;
+                        color: #0284c7;
+                        border-radius: 20px;
+                        padding: 4px 10px;
+                        font-size: 0.74rem;
+                        font-weight: 700;
+                        text-decoration: none;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 4px;
+                        transition: all 0.2s ease;
+                        box-shadow: 0 2px 4px rgba(2, 132, 199, 0.04);
+                    }
+                    .bunny-nav-pill:hover {
+                        background: #0284c7;
+                        color: #ffffff !important;
+                        border-color: #0284c7;
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 8px rgba(2, 132, 199, 0.2);
+                    }
+                </style>
 
-                    <div class="p-2 border mt-2 small" style="background: #e0f2fe; border-color: #bae6fd !important; color: #0369a1; font-weight: 600;">
-                        <i class="fa-solid fa-droplet text-info me-1"></i> Bersih, Wangi, &amp; Seimbang (Balance)
+                <div class="bunny-card-container">
+                    <div class="card p-3 border-2 bunny-ai-card text-center">
+                        <div class="bunny-glow-bg"></div>
+
+                        <!-- Header Badge: AI Navigator Online -->
+                        <div class="d-flex justify-content-between align-items-center mb-2 position-relative" style="z-index: 2;">
+                            <span class="badge border bg-white d-flex align-items-center gap-1 shadow-sm px-2 py-1" style="border-color: #bae6fd !important; color: #0284c7; font-size: 0.72rem; font-weight: 800;">
+                                <span class="spinner-grow spinner-grow-sm text-info" style="width: 8px; height: 8px;" role="status"></span>
+                                <span>AI NAVIGATOR // 3D</span>
+                            </span>
+                            <span class="badge bg-warning text-dark shadow-sm px-2 py-1" style="font-size: 0.7rem; font-weight: 800; border-radius: 8px;">
+                                <i class="fa-solid fa-sparkles text-danger me-1"></i> FLUFFY 🐰
+                            </span>
+                        </div>
+
+                        <!-- Dynamic Speech Bubble -->
+                        <div class="mb-2 position-relative" style="z-index: 2;">
+                            <div class="bunny-speech-bubble" id="bunnyDialogText">
+                                Halo Kelompok 4! 🫧 Aku Fluffy, asisten AI laundry. Mau aku antar ke mana hari ini?
+                            </div>
+                        </div>
+
+                        <!-- 3D Vector Bunny Character -->
+                        <div class="py-1 position-relative" style="z-index: 2;">
+                            <!-- Floating Bubbles around Bunny -->
+                            <div class="bubble-particle bubble-1"></div>
+                            <div class="bubble-particle bubble-2"></div>
+                            <div class="bubble-particle bubble-3"></div>
+
+                            <div class="bunny-3d-wrapper anim-bunny-float" id="bunnyTrigger" onclick="talkToBunny()" title="Klik aku untuk tips akuntansi &amp; sapaan lucu! 🐾">
+                                <svg width="124" height="120" viewBox="0 0 120 115" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 10px 16px rgba(2, 132, 199, 0.18));">
+                                    <defs>
+                                        <!-- 3D Gradients -->
+                                        <radialGradient id="bunnyBodyGrad" cx="50%" cy="35%" r="65%">
+                                            <stop offset="0%" stop-color="#ffffff" />
+                                            <stop offset="70%" stop-color="#f8fafc" />
+                                            <stop offset="100%" stop-color="#e2e8f0" />
+                                        </radialGradient>
+                                        <radialGradient id="bunnyEarInner" cx="45%" cy="35%" r="65%">
+                                            <stop offset="0%" stop-color="#fed7aa" />
+                                            <stop offset="60%" stop-color="#fbcfe8" />
+                                            <stop offset="100%" stop-color="#f472b6" />
+                                        </radialGradient>
+                                        <radialGradient id="bunnyCheekGrad" cx="50%" cy="50%" r="50%">
+                                            <stop offset="0%" stop-color="#fda4af" stop-opacity="0.9" />
+                                            <stop offset="100%" stop-color="#fda4af" stop-opacity="0" />
+                                        </radialGradient>
+                                        <radialGradient id="bunnyEye3D" cx="35%" cy="30%" r="60%">
+                                            <stop offset="0%" stop-color="#334155" />
+                                            <stop offset="60%" stop-color="#0f172a" />
+                                            <stop offset="100%" stop-color="#020617" />
+                                        </radialGradient>
+                                        <linearGradient id="bunnyCrownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#38bdf8" />
+                                            <stop offset="100%" stop-color="#0284c7" />
+                                        </linearGradient>
+                                    </defs>
+
+                                    <!-- Left Ear (3D Floppy) -->
+                                    <g class="anim-bunny-ear-left">
+                                        <!-- Outer Ear Shadow & Base -->
+                                        <path d="M 38 65 C 24 45 22 18 33 6 C 42 -2 52 14 47 48 Z" fill="url(#bunnyBodyGrad)" stroke="#cbd5e1" stroke-width="1.5" />
+                                        <!-- Inner Ear Soft Pink -->
+                                        <path d="M 37 54 C 28 40 28 20 34 12 C 40 6 46 18 42 43 Z" fill="url(#bunnyEarInner)" />
+                                    </g>
+
+                                    <!-- Right Ear (3D Floppy) -->
+                                    <g class="anim-bunny-ear-right">
+                                        <!-- Outer Ear Shadow & Base -->
+                                        <path d="M 82 65 C 96 45 98 18 87 6 C 78 -2 68 14 73 48 Z" fill="url(#bunnyBodyGrad)" stroke="#cbd5e1" stroke-width="1.5" />
+                                        <!-- Inner Ear Soft Pink -->
+                                        <path d="M 83 54 C 92 40 92 20 86 12 C 80 6 74 18 78 43 Z" fill="url(#bunnyEarInner)" />
+                                    </g>
+
+                                    <!-- Cute Laundry Soap Crown / Bubbles on Head -->
+                                    <circle cx="60" cy="40" r="8" fill="url(#bunnyCrownGrad)" opacity="0.9" />
+                                    <circle cx="50" cy="44" r="6" fill="#7dd3fc" opacity="0.85" />
+                                    <circle cx="70" cy="44" r="6" fill="#38bdf8" opacity="0.85" />
+                                    <circle cx="59" cy="38" r="2.5" fill="#ffffff" opacity="0.9" />
+
+                                    <!-- Bunny 3D Head Spherical -->
+                                    <ellipse cx="60" cy="74" rx="36" ry="32" fill="url(#bunnyBodyGrad)" stroke="#e2e8f0" stroke-width="1.5" />
+                                    <!-- Head Highlight Specular 3D -->
+                                    <ellipse cx="52" cy="56" rx="14" ry="7" fill="#ffffff" opacity="0.65" transform="rotate(-15 52 56)" />
+
+                                    <!-- Cute Blushing Cheeks -->
+                                    <ellipse class="anim-bunny-cheeks" cx="37" cy="80" rx="8" ry="5" fill="url(#bunnyCheekGrad)" />
+                                    <ellipse class="anim-bunny-cheeks" cx="83" cy="80" rx="8" ry="5" fill="url(#bunnyCheekGrad)" />
+
+                                    <!-- Anime Eyes with Dual Specular Sparkles -->
+                                    <g class="anim-bunny-eyes">
+                                        <!-- Left Eye -->
+                                        <ellipse cx="46" cy="71" rx="5.5" ry="7" fill="url(#bunnyEye3D)" />
+                                        <circle cx="44.5" cy="68.5" r="2.2" fill="#ffffff" />
+                                        <circle cx="48" cy="73" r="1.1" fill="#ffffff" />
+
+                                        <!-- Right Eye -->
+                                        <ellipse cx="74" cy="71" rx="5.5" ry="7" fill="url(#bunnyEye3D)" />
+                                        <circle cx="72.5" cy="68.5" r="2.2" fill="#ffffff" />
+                                        <circle cx="76" cy="73" r="1.1" fill="#ffffff" />
+                                    </g>
+
+                                    <!-- Kawaii Button Nose & Mouth (:3) -->
+                                    <path d="M 58 77 C 59 75 61 75 62 77 C 62 78 58 78 58 77 Z" fill="#f43f5e" />
+                                    <path d="M 55 81 C 57 84 60 84 60 81 C 60 84 63 84 65 81" stroke="#475569" stroke-width="1.6" stroke-linecap="round" fill="none" />
+
+                                    <!-- Tiny Cute 3D Paws Holding a Soap Sponge -->
+                                    <ellipse cx="44" cy="98" rx="8" ry="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2" />
+                                    <ellipse cx="76" cy="98" rx="8" ry="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2" />
+                                    <!-- Laundry Soap bar held by paws -->
+                                    <rect x="50" y="93" width="20" height="9" rx="4" fill="url(#bunnyCrownGrad)" stroke="#38bdf8" stroke-width="1" />
+                                    <circle cx="56" cy="97" r="1.5" fill="#ffffff" opacity="0.8" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Mascot Title -->
+                        <div class="mb-2 position-relative" style="z-index: 2;">
+                            <h6 class="fw-extrabold text-dark mb-0" style="letter-spacing: -0.3px;">
+                                wishuwashere. AI Assistant
+                            </h6>
+                            <small class="text-secondary fw-semibold" style="font-size: 0.75rem;">
+                                Siap memandu kasir &amp; akuntansi Anda 🧺✨
+                            </small>
+                        </div>
+
+                        <!-- Mini Navigator Action Pills -->
+                        <div class="d-flex flex-wrap justify-content-center gap-1 mt-1 position-relative" style="z-index: 2;">
+                            <a href="<?= base_url('kasir') ?>" class="bunny-nav-pill" title="Buka Transaksi Kasir">
+                                <span>🧺 Kasir</span>
+                            </a>
+                            <a href="<?= base_url('neraca-lajur') ?>" class="bunny-nav-pill" title="Lihat Neraca Lajur 10 Kolom">
+                                <span>📊 Neraca Lajur</span>
+                            </a>
+                            <a href="<?= base_url('penyesuaian') ?>" class="bunny-nav-pill" title="Input Jurnal Penyesuaian">
+                                <span>📑 Penyesuaian</span>
+                            </a>
+                            <a href="<?= base_url('laporan') ?>" class="bunny-nav-pill" title="Cetak Laporan Keuangan">
+                                <span>📈 Laporan</span>
+                            </a>
+                        </div>
+
+                        <!-- Interactive Clickable Tip Button -->
+                        <button type="button" class="btn btn-sm mt-2 fw-bold w-100 d-flex align-items-center justify-content-center gap-1 shadow-xs" onclick="talkToBunny()" style="background: #e0f2fe; border: 1px solid #bae6fd; color: #0284c7; border-radius: 10px; font-size: 0.75rem; padding: 5px 8px;">
+                            <i class="fa-solid fa-wand-magic-sparkles text-info"></i>
+                            <span>Klik Aku untuk Tips AI! 💬</span>
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
         </div>
     </div>
 
@@ -351,6 +653,7 @@
 </div>
 
 <script>
+    // Live Search Filter Tabel
     const searchInput = document.getElementById('quickSearchInput');
     const topSearchInput = document.getElementById('topLiveSearch');
     
@@ -366,124 +669,59 @@
     if (searchInput) searchInput.addEventListener('input', (e) => filterTable(e.target.value));
     if (topSearchInput) topSearchInput.addEventListener('input', (e) => filterTable(e.target.value));
 
-    function runVercelDeploy() {
-        const token = document.getElementById('githubTokenInput').value.trim();
-        const outputBox = document.getElementById('deployOutput');
-        const spinner = document.getElementById('vercelSpinner');
+    // ===== 3D BUNNY AI ASSISTANT INTERACTION =====
+    const bunnyTips = [
+        "Hai Kelompok 4! 🫧 Aku Fluffy, asisten AI laundry kamu. Mau aku antar ke menu mana sekarang?",
+        "💡 Tip Kasir: Input transaksi kasir baru, jurnal umum & saldo kas terupdate otomatis lho! 🧺",
+        "⚖️ Tip Akuntansi: Pastikan debit dan kredit di Neraca Lajur 10 Kolom selalu seimbang (balance)! ✨",
+        "📑 Tip Penyesuaian: Jangan lupa cek Jurnal Penyesuaian beban sewa & perlengkapan akhir periode! 🧼",
+        "📊 Tip Laporan: 4 Laporan pokok (Laba Rugi, Modal, Neraca, Arus Kas) siap diekspor / dicetak rapi! 💰",
+        "🐰 Status Cloud: Database TiDB Cloud & Vercel online 100% aktif & siap dipakai demo! 🚀",
+        "💖 Semangat menyelesaikan tugas Sistem Informasi Akuntansi Kelompok 4! Kalian luar biasa! 🌸"
+    ];
+    let bunnyTipIndex = 0;
 
-        spinner.classList.remove('d-none');
-        outputBox.innerHTML = '<span class="text-info">⏳ Mengirim permintaan pembuatan project ke API Vercel...\nTarget Repo: BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2\nMohon tunggu...</span>\n\n';
+    function talkToBunny() {
+        const dialog = document.getElementById('bunnyDialogText');
+        const trigger = document.getElementById('bunnyTrigger');
+        if (!dialog) return;
 
-        fetch('<?= base_url('deploy-vercel-api') ?>?token=' + encodeURIComponent(token))
-            .then(res => res.json())
-            .then(data => {
-                spinner.classList.add('d-none');
-                outputBox.textContent = JSON.stringify(data, null, 2);
-                if (data.http_code === 200 || data.http_code === 201) {
-                    outputBox.innerHTML += '\n\n<span class="text-success fw-bold">🎉 PROJECT BERHASIL DIBUAT DI VERCEL!</span>\n<span class="text-white">Buka dashboard Vercel Anda untuk melihat proses build: https://vercel.com/dashboard</span>';
-                }
-            })
-            .catch(err => {
-                spinner.classList.add('d-none');
-                outputBox.innerHTML = '<span class="text-danger fw-bold">❌ Error: ' + err + '</span>';
-            });
-    }
-
-    // ===== AUTO GIT DEPLOY EXECUTION =====
-    function runGitDeploy() {
-        const token = document.getElementById('githubTokenInput').value.trim();
-        const btn = document.getElementById('btnStartDeploy');
-        const outputBox = document.getElementById('deployOutput');
-        const spinner = document.getElementById('deploySpinner');
-
-        btn.disabled = true;
-        spinner.classList.remove('d-none');
-        outputBox.innerHTML = '<span class="text-info">⏳ Menjalankan git init, git add, git commit, dan push ke GitHub...\nTarget: https://github.com/BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2.git\nMohon tunggu beberapa detik...</span>\n\n';
-
-        let url = '<?= base_url('git-deploy-now') ?>';
-        if (token) {
-            url += '?token=' + encodeURIComponent(token);
+        // Play gentle kawaii sparkle sound using Web Audio API
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+            osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15); // A5
+            gain.gain.setValueAtTime(0.08, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.25);
+        } catch (e) {
+            // Audio context not allowed or blocked
         }
 
-        fetch(url)
-            .then(res => res.text())
-            .then(text => {
-                spinner.classList.add('d-none');
-                btn.disabled = false;
-                outputBox.textContent = text;
-                if (text.includes('main -> main') || text.includes('Branch \'main\' set up to track')) {
-                    outputBox.innerHTML += '\n\n<span class="text-success fw-bold">🎉 BERHASIL PUSH KE GITHUB 100%!</span>\n<span class="text-white">Silakan refresh halaman GitHub Anda untuk melihat kode yang sudah terunggah.</span>';
-                }
-            })
-            .catch(err => {
-                spinner.classList.add('d-none');
-                btn.disabled = false;
-                outputBox.innerHTML = '<span class="text-danger fw-bold">❌ Error koneksi: ' + err + '</span>';
-            });
+        // Cute bounce animation
+        if (trigger) {
+            trigger.style.transform = 'scale(1.22) rotate(4deg)';
+            setTimeout(() => {
+                trigger.style.transform = '';
+            }, 300);
+        }
+
+        // Cycle tip
+        bunnyTipIndex = (bunnyTipIndex + 1) % bunnyTips.length;
+        dialog.style.opacity = '0';
+        dialog.style.transform = 'translateY(5px)';
+        setTimeout(() => {
+            dialog.textContent = bunnyTips[bunnyTipIndex];
+            dialog.style.opacity = '1';
+            dialog.style.transform = 'translateY(0)';
+        }, 180);
     }
 </script>
-
-<!-- MODAL DEPLOY KE GITHUB & VERCEL -->
-<div class="modal fade" id="modalGitDeploy" tabindex="-1" aria-labelledby="modalGitDeployLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content border-2" style="border-radius: 14px; overflow: hidden; border-color: #0f172a;">
-            <div class="modal-header text-white" style="background: linear-gradient(135deg, #0f172a, #1e293b);">
-                <div class="d-flex align-items-center gap-2">
-                    <i class="fa-brands fa-github fs-4"></i>
-                    <div>
-                        <h5 class="modal-title fw-bold mb-0" id="modalGitDeployLabel">Deploy Otomatis ke GitHub &amp; Vercel</h5>
-                        <small class="text-muted">Repository: <code>BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2</code></small>
-                    </div>
-                </div>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4">
-                <div class="alert alert-info border-0 d-flex gap-2 align-items-start mb-3" style="border-radius: 10px; background: #f0f9ff; border-left: 4px solid #0284c7 !important;">
-                    <i class="fa-solid fa-circle-info text-primary mt-1"></i>
-                    <div class="small text-dark">
-                        Tombol ini akan menjalankan perintah <strong>git add, commit, dan push</strong> langsung dari komputer lokal Anda ke repository GitHub <strong>BestyAnjaliPutri</strong> secara otomatis.
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-bold small text-muted">
-                        GitHub / Vercel Token:
-                    </label>
-                    <input type="text" id="githubTokenInput" class="form-control" value="70ec95ad492a4e65c083d05a1a3370c99ce28f77">
-                    <div class="d-flex justify-content-between align-items-center mt-1">
-                        <small class="text-success fw-bold" style="font-size: 0.78rem;">
-                            ✓ Token terpasang otomatis
-                        </small>
-                    </div>
-                </div>
-
-                <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-                    <button type="button" class="btn btn-primary fw-bold px-4 py-2" onclick="runVercelDeploy()" style="background: linear-gradient(135deg, #000, #333); border-radius: 8px;">
-                        <span id="vercelSpinner" class="spinner-border spinner-border-sm me-2 d-none" role="status"></span>
-                        <i class="fa-solid fa-cloud-arrow-up me-1"></i>
-                        Deploy Otomatis ke Vercel Sekarang
-                    </button>
-                    <a href="https://github.com/BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2" target="_blank" class="btn btn-outline-secondary btn-sm px-3" style="border-radius: 8px;">
-                        <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Buka Repo GitHub
-                    </a>
-                </div>
-
-                <div class="p-2 mb-3 bg-light border rounded small text-dark d-flex align-items-center gap-2">
-                    <i class="fa-solid fa-bolt text-warning fs-5"></i>
-                    <div>
-                        <strong>Cara Alternatif Paling Praktis (Tanpa Token):</strong><br>
-                        Buka folder <code>C:\xampp\htdocs\laundry</code> lalu <strong>klik ganda (double-click)</strong> file <code>DEPLOY_KE_GITHUB.bat</code>. Jendela login GitHub di browser akan langsung muncul otomatis!
-                    </div>
-                </div>
-
-                <label class="form-label fw-bold small text-muted">Terminal Output:</label>
-                <pre id="deployOutput" class="p-3 bg-dark text-light border" style="border-radius: 10px; max-height: 260px; overflow-y: auto; font-size: 0.8rem; font-family: Consolas, monospace; line-height: 1.5; white-space: pre-wrap;">Siap. Klik "Mulai Push ke GitHub Sekarang" untuk memulai proses otomatis.</pre>
-            </div>
-            <div class="modal-footer bg-light py-2">
-                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <?= $this->endSection() ?>
