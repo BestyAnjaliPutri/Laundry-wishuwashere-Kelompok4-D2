@@ -55,15 +55,15 @@ class Home extends BaseController
         $port = (int)($this->request->getVar('port') ?: 4000);
 
         if (empty($host)) {
-            $host = 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
+            $host = 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com';
         }
 
         $defaultPasswords = ['ILv3ndVtFmLLvqS2', '1Lv3ndVtFmLLvqS2'];
         $tryPasses = !empty($pass) ? [$pass] : $defaultPasswords;
-        $tryUsers  = !empty($user) ? [$user] : ['3rDxFxgkognB5J2.root'];
+        $tryUsers  = !empty($user) ? [$user] : ['3rDxFxgkognB5J2.root', '45S7bPdvjuyqytw.root'];
         $tryHosts  = !empty($host) ? [$host] : [
-            'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
-            'gateway01.ap-northeast-1.prod.aws.tidbcloud.com'
+            'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
+            'gateway01.ap-southeast-1.prod.aws.tidbcloud.com'
         ];
 
         $mysqli = null;
@@ -332,7 +332,7 @@ class Home extends BaseController
             "git remote add origin $remoteUrl 2>&1",
             'git add .',
             'git add -f vendor',
-            'git commit -m "Fix Vercel: TiDB SSL cipher handshake, writable session temp dir, development env" 2>&1',
+            'git commit -m "Fix: Point Vercel to wishuwasherelaundry cluster with auto failover" 2>&1',
             'git push -u origin main 2>&1'
         ];
 

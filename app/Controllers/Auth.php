@@ -49,6 +49,8 @@ class Auth extends BaseController
 
     public function doLogin()
     {
+        $this->ensureDefaultUsers();
+
         $rawUsername = $this->request->getPost('username');
         $username = trim((string)$rawUsername);
         $password = (string) $this->request->getPost('password');

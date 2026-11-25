@@ -74,9 +74,9 @@ class Database extends Config
         $isVercel = getenv('VERCEL') || isset($_SERVER['VERCEL']) || (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'vercel.app') !== false);
 
         if ($isVercel) {
-            $this->default['hostname'] = getenv('MYSQLHOST') ?: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com';
+            $this->default['hostname'] = getenv('MYSQLHOST') ?: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com';
             $this->default['database'] = getenv('MYSQLDATABASE') ?: 'db_laundry';
-            $this->default['username'] = getenv('MYSQLUSER') ?: '45S7bPdvjuyqytw.root';
+            $this->default['username'] = getenv('MYSQLUSER') ?: '3rDxFxgkognB5J2.root';
             $this->default['password'] = getenv('MYSQLPASSWORD') ?: 'ILv3ndVtFmLLvqS2';
             $this->default['port']     = (int)(getenv('MYSQLPORT') ?: 4000);
             $this->default['encrypt']  = [
@@ -84,6 +84,34 @@ class Database extends Config
                 'ssl_cipher' => 'DEFAULT',
             ];
             $this->default['DBDebug']  = true;
+
+            // Failover otomatis jika karakter pertama password adalah angka 1 atau cluster Singapore
+            $this->default['failover'] = [
+                [
+                    'hostname' => 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
+                    'database' => 'db_laundry',
+                    'username' => '3rDxFxgkognB5J2.root',
+                    'password' => '1Lv3ndVtFmLLvqS2',
+                    'port'     => 4000,
+                    'encrypt'  => ['ssl_verify' => false, 'ssl_cipher' => 'DEFAULT'],
+                ],
+                [
+                    'hostname' => 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
+                    'database' => 'db_laundry',
+                    'username' => '45S7bPdvjuyqytw.root',
+                    'password' => 'ILv3ndVtFmLLvqS2',
+                    'port'     => 4000,
+                    'encrypt'  => ['ssl_verify' => false, 'ssl_cipher' => 'DEFAULT'],
+                ],
+                [
+                    'hostname' => 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
+                    'database' => 'db_laundry',
+                    'username' => '45S7bPdvjuyqytw.root',
+                    'password' => '1Lv3ndVtFmLLvqS2',
+                    'port'     => 4000,
+                    'encrypt'  => ['ssl_verify' => false, 'ssl_cipher' => 'DEFAULT'],
+                ],
+            ];
         } else {
             // Konfigurasi Lokal XAMPP / Railway
             $this->default['hostname'] = getenv('MYSQLHOST')     ?: getenv('DB_HOST')     ?: env('database.default.hostname', 'localhost');

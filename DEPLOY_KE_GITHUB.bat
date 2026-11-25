@@ -1,8 +1,8 @@
 @echo off
 chcp 65001 >nul
 echo ========================================================
-echo   PUSH PERBAIKAN VERCEL KE GITHUB
-echo   wishuwashere. Laundry Kelompok 4
+echo   PUSH KODE WISHUWASHERE LAUNDRY KE GITHUB & VERCEL
+echo   Repository: BestyAnjaliPutri/Laundry-wishuwashere-Kelompok4-D2
 echo ========================================================
 
 cd /d C:\xampp\htdocs\laundry
@@ -12,7 +12,7 @@ git add .
 git add -f vendor
 
 echo [2/3] Melakukan commit...
-git commit -m "Fix Vercel: TiDB SSL cipher handshake, writable session temp dir, development env"
+git commit -m "Fix: Point Vercel to wishuwasherelaundry cluster with auto failover"
 
 echo [3/3] Mengirim (Push) ke GitHub main branch...
 set GCM_INTERACTIVE=never
