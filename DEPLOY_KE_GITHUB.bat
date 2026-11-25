@@ -12,7 +12,7 @@ git add .
 git add -f vendor
 
 echo [2/3] Melakukan commit...
-git commit -m "Fix: Point Vercel to wishuwasherelaundry cluster with auto failover"
+git commit -m "Deploy: Connect wishuwasherelaundry with new active password mJGks9RYclPnbAKQ"
 
 echo [3/3] Mengirim (Push) ke GitHub main branch...
 set GCM_INTERACTIVE=never

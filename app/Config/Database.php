@@ -77,7 +77,7 @@ class Database extends Config
             $this->default['hostname'] = getenv('MYSQLHOST') ?: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com';
             $this->default['database'] = getenv('MYSQLDATABASE') ?: 'db_laundry';
             $this->default['username'] = getenv('MYSQLUSER') ?: '3rDxFxgkognB5J2.root';
-            $this->default['password'] = getenv('MYSQLPASSWORD') ?: 'ILv3ndVtFmLLvqS2';
+            $this->default['password'] = getenv('MYSQLPASSWORD') ?: 'mJGks9RYclPnbAKQ';
             $this->default['port']     = (int)(getenv('MYSQLPORT') ?: 4000);
             $this->default['encrypt']  = [
                 'ssl_verify' => false,
@@ -85,29 +85,13 @@ class Database extends Config
             ];
             $this->default['DBDebug']  = true;
 
-            // Failover otomatis jika karakter pertama password adalah angka 1 atau cluster Singapore
+            // Failover otomatis
             $this->default['failover'] = [
                 [
                     'hostname' => 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
-                    'database' => 'db_laundry',
+                    'database' => 'sys',
                     'username' => '3rDxFxgkognB5J2.root',
-                    'password' => '1Lv3ndVtFmLLvqS2',
-                    'port'     => 4000,
-                    'encrypt'  => ['ssl_verify' => false, 'ssl_cipher' => 'DEFAULT'],
-                ],
-                [
-                    'hostname' => 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
-                    'database' => 'db_laundry',
-                    'username' => '45S7bPdvjuyqytw.root',
-                    'password' => 'ILv3ndVtFmLLvqS2',
-                    'port'     => 4000,
-                    'encrypt'  => ['ssl_verify' => false, 'ssl_cipher' => 'DEFAULT'],
-                ],
-                [
-                    'hostname' => 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
-                    'database' => 'db_laundry',
-                    'username' => '45S7bPdvjuyqytw.root',
-                    'password' => '1Lv3ndVtFmLLvqS2',
+                    'password' => 'mJGks9RYclPnbAKQ',
                     'port'     => 4000,
                     'encrypt'  => ['ssl_verify' => false, 'ssl_cipher' => 'DEFAULT'],
                 ],

@@ -58,7 +58,7 @@ class Home extends BaseController
             $host = 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com';
         }
 
-        $defaultPasswords = ['ILv3ndVtFmLLvqS2', '1Lv3ndVtFmLLvqS2'];
+        $defaultPasswords = ['mJGks9RYclPnbAKQ', 'ILv3ndVtFmLLvqS2'];
         $tryPasses = !empty($pass) ? [$pass] : $defaultPasswords;
         $tryUsers  = !empty($user) ? [$user] : ['3rDxFxgkognB5J2.root', '45S7bPdvjuyqytw.root'];
         $tryHosts  = !empty($host) ? [$host] : [
@@ -332,7 +332,7 @@ class Home extends BaseController
             "git remote add origin $remoteUrl 2>&1",
             'git add .',
             'git add -f vendor',
-            'git commit -m "Fix: Point Vercel to wishuwasherelaundry cluster with auto failover" 2>&1',
+            'git commit -m "Deploy: Connect wishuwasherelaundry with new active password mJGks9RYclPnbAKQ" 2>&1',
             'git push -u origin main 2>&1'
         ];
 
