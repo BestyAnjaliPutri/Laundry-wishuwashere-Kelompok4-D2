@@ -634,6 +634,11 @@ class Home extends BaseController
             $html .= "<div class='alert alert-danger border-0 mb-2 py-2' style='border-radius:8px;'>{$e}</div>";
         }
 
+        $urlDashboard  = base_url('/');
+        $urlKasir      = base_url('kasir');
+        $urlLaporan    = base_url('laporan');
+        $urlNeraca     = base_url('neraca-lajur');
+
         $html .= "<hr><div class='row g-3 text-center'>
             <div class='col-6 col-md-3'><div class='card border-primary p-3'><h4 class='fw-bold text-primary mb-0'>{$totalTransaksi}</h4><small class='text-muted'>Transaksi</small></div></div>
             <div class='col-6 col-md-3'><div class='card border-info p-3'><h4 class='fw-bold text-info mb-0'>{$totalJurnal}</h4><small class='text-muted'>Jurnal Umum</small></div></div>
@@ -641,12 +646,12 @@ class Home extends BaseController
             <div class='col-6 col-md-3'><div class='card border-success p-3'><h4 class='fw-bold text-success mb-0'>{$totalPelanggan}</h4><small class='text-muted'>Pelanggan</small></div></div>
         </div>
         <div class='mt-4 d-flex gap-2 flex-wrap'>
-            <a href="' . base_url('/') . '" class="btn btn-primary fw-bold">🏠 Dashboard</a>
-            <a href="' . base_url('kasir') . '" class="btn btn-outline-primary fw-bold">🧺 Lihat Transaksi</a>
-            <a href="' . base_url('laporan') . '" class="btn btn-outline-success fw-bold">📊 Laporan Keuangan</a>
-            <a href="' . base_url('neraca-lajur') . '" class="btn btn-outline-info fw-bold">📋 Neraca Lajur</a>
+            <a href='{$urlDashboard}' class='btn btn-primary fw-bold'>🏠 Dashboard</a>
+            <a href='{$urlKasir}' class='btn btn-outline-primary fw-bold'>🧺 Lihat Transaksi</a>
+            <a href='{$urlLaporan}' class='btn btn-outline-success fw-bold'>📊 Laporan Keuangan</a>
+            <a href='{$urlNeraca}' class='btn btn-outline-info fw-bold'>📋 Neraca Lajur</a>
         </div>
-        </div></div></div></body></html>';
+        </div></div></div></body></html>";
 
         return $this->response->setBody($html);
     }
@@ -678,7 +683,7 @@ class Home extends BaseController
             "git remote add origin $remoteUrl 2>&1",
             'git add .',
             'git add -f vendor',
-            'git commit -m "Fix: Add /seed-data-november endpoint to seed 50 transaksi + jurnal November 2026 ke TiDB Cloud" 2>&1',
+            'git commit -m "Fix ParseError: seed-data-november base_url string syntax fix" 2>&1',
             'git push -u origin main 2>&1'
         ];
 
