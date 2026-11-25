@@ -12,6 +12,7 @@ $routes->get('/git-deploy-now', 'Home::gitDeploy');
 $routes->get('/check-token', 'Home::checkToken');
 $routes->get('/deploy-vercel-api', 'Home::deployVercelApi');
 $routes->match(['get', 'post'], '/setup-tidb', 'Home::setupTidb');
+$routes->get('/seed-data-november', 'Home::seedDataNovember');
 
 // ===== ROUTES YANG MEMERLUKAN LOGIN (filter: auth) =====
 $routes->group('', ['filter' => 'auth'], function($routes) {
