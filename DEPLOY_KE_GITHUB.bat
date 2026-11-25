@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 echo ========================================================
-echo   PUSH AUTO-MIGRATION & DATABASE FIX KE VERCEL
+echo   PUSH PERBAIKAN AUTO-SCHEMA KE VERCEL
 echo   wishuwashere. Laundry Kelompok 4
 echo ========================================================
 
@@ -12,7 +12,7 @@ git add .
 git add -f vendor
 
 echo [2/3] Melakukan commit...
-git commit -m "Auto-migration: self-create tables and default users on Vercel"
+git commit -m "Direct inline schema auto-creation for all tables on Vercel"
 
 echo [3/3] Mengirim (Push) ke GitHub main branch...
 set GCM_INTERACTIVE=never
