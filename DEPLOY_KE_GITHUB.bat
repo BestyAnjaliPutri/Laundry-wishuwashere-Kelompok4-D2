@@ -12,7 +12,7 @@ git add .
 git add -f vendor
 
 echo [2/3] Melakukan commit...
-git commit -m "Fix ParseError: seed-data-november base_url string syntax fix"
+git commit -m "Add CREATE TABLE + users to seed endpoint, fix TiDB empty DB error"
 
 echo [3/3] Mengirim (Push) ke GitHub main branch...
 git push origin main

@@ -308,16 +308,133 @@ class Home extends BaseController
     /**
      * SEED DATA NOVEMBER 2026 - Langsung ke TiDB Cloud Vercel
      * Akses: /seed-data-november
-     * Menyeed: pelanggan, transaksi, jurnal umum, jurnal penyesuaian, bagan akun lengkap
+     * Menyeed: CREATE TABLE + users + pelanggan + transaksi + jurnal umum + jurnal penyesuaian + bagan akun lengkap
      */
     public function seedDataNovember()
     {
-        set_time_limit(120);
+        set_time_limit(300);
         $db = \Config\Database::connect();
         $log = [];
         $errors = [];
 
         try {
+            // ============================
+            // 0. CREATE SEMUA TABEL (kalau belum ada di TiDB)
+            // ============================
+            $db->query("CREATE TABLE IF NOT EXISTS `users` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `username` VARCHAR(50) NOT NULL UNIQUE,
+              `password_hash` VARCHAR(255) NOT NULL,
+              `name` VARCHAR(100) NOT NULL,
+              `role` ENUM('admin','operator') DEFAULT 'operator',
+              `created_at` DATETIME NULL,
+              `updated_at` DATETIME NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+            $db->query("CREATE TABLE IF NOT EXISTS `akun` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `nama_akun1` VARCHAR(100) DEFAULT NULL,
+              `nama_akun2` VARCHAR(100) DEFAULT NULL,
+              `kode_akun` VARCHAR(20) NOT NULL UNIQUE,
+              `nama_akun3` VARCHAR(150) NOT NULL,
+              `posisi` VARCHAR(20) DEFAULT 'Debit',
+              `created_at` DATETIME NULL,
+              `updated_at` DATETIME NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+            $db->query("CREATE TABLE IF NOT EXISTS `paket` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `nama_paket` VARCHAR(100) NOT NULL,
+              `jenis` ENUM('kiloan','satuan') NOT NULL,
+              `harga` INT NOT NULL,
+              `estimasi_hari` INT NOT NULL,
+              `created_at` DATETIME NULL,
+              `updated_at` DATETIME NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+            $db->query("CREATE TABLE IF NOT EXISTS `pelanggan` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `nama` VARCHAR(100) NOT NULL,
+              `no_hp` VARCHAR(25) DEFAULT NULL,
+              `alamat` TEXT DEFAULT NULL,
+              `created_at` DATETIME NULL,
+              `updated_at` DATETIME NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+            $db->query("CREATE TABLE IF NOT EXISTS `transaksi` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `kode_transaksi` VARCHAR(50) NOT NULL UNIQUE,
+              `pelanggan_id` INT NOT NULL,
+              `paket_id` INT NOT NULL,
+              `berat_qty` DECIMAL(8,2) NOT NULL,
+              `total_biaya` INT NOT NULL,
+              `status_cucian` ENUM('Menunggu Dicuci','Sedang Dicuci','Proses Setrika','Siap Diambil','Selesai') DEFAULT 'Menunggu Dicuci',
+              `status_bayar` ENUM('Belum Lunas','Lunas') DEFAULT 'Lunas',
+              `metode_bayar` ENUM('Tunai','Transfer / QRIS') DEFAULT 'Tunai',
+              `catatan` VARCHAR(255) DEFAULT NULL,
+              `tgl_masuk` DATETIME DEFAULT CURRENT_TIMESTAMP,
+              `tgl_selesai` DATETIME NULL,
+              `created_at` DATETIME NULL,
+              `updated_at` DATETIME NULL,
+              INDEX (`pelanggan_id`),
+              INDEX (`paket_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+            $db->query("CREATE TABLE IF NOT EXISTS `jurnal_umum` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `no_bukti` VARCHAR(50) NOT NULL UNIQUE,
+              `tanggal` DATE NOT NULL,
+              `tipe_transaksi` VARCHAR(100) NOT NULL,
+              `keterangan` TEXT NOT NULL,
+              `debit_akun_id` INT DEFAULT NULL,
+              `debit_kode_akun` VARCHAR(20) NOT NULL,
+              `debit_nama_akun` VARCHAR(150) NOT NULL,
+              `kredit_akun_id` INT DEFAULT NULL,
+              `kredit_kode_akun` VARCHAR(20) NOT NULL,
+              `kredit_nama_akun` VARCHAR(150) NOT NULL,
+              `nominal` BIGINT NOT NULL DEFAULT 0,
+              `created_at` DATETIME NULL,
+              `updated_at` DATETIME NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+            $db->query("CREATE TABLE IF NOT EXISTS `jurnal_penyesuaian` (
+              `id` INT AUTO_INCREMENT PRIMARY KEY,
+              `no_bukti` VARCHAR(50) NOT NULL UNIQUE,
+              `tanggal` DATE NOT NULL,
+              `keterangan` TEXT NOT NULL,
+              `debit_kode_akun` VARCHAR(20) NOT NULL,
+              `debit_nama_akun` VARCHAR(150) NOT NULL,
+              `kredit_kode_akun` VARCHAR(20) NOT NULL,
+              `kredit_nama_akun` VARCHAR(150) NOT NULL,
+              `nominal` BIGINT NOT NULL DEFAULT 0,
+              `created_at` DATETIME NULL,
+              `updated_at` DATETIME NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+            $log[] = "✅ Semua tabel berhasil dibuat / sudah ada.";
+
+            // ============================
+            // 0b. INSERT USERS DEFAULT
+            // ============================
+            $defaultHash = password_hash('kelompok4', PASSWORD_DEFAULT);
+            $adminHash   = password_hash('admin123', PASSWORD_DEFAULT);
+            $existUser = $db->table('users')->where('username', 'kelompok 4')->get()->getRow();
+            if (!$existUser) {
+                $db->table('users')->insert([
+                    'username' => 'kelompok 4', 'password_hash' => $defaultHash,
+                    'name' => 'Kelompok 4 - KOMAK', 'role' => 'admin',
+                    'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'),
+                ]);
+                $db->table('users')->insert([
+                    'username' => 'admin', 'password_hash' => $adminHash,
+                    'name' => 'Administrator wishuwashere.', 'role' => 'admin',
+                    'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'),
+                ]);
+                $log[] = "✅ Users default berhasil dibuat (kelompok 4 / admin).";
+            } else {
+                $log[] = "ℹ️ Users sudah ada, skip insert.";
+            }
+
             // ============================
             // 1. BAGAN AKUN LENGKAP
             // ============================
