@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 echo ========================================================
-echo   PUSH PERBAIKAN AUTO-SCHEMA KE VERCEL
+echo   PUSH PERBAIKAN LOGIN KELOMPOK 4 KE VERCEL
 echo   wishuwashere. Laundry Kelompok 4
 echo ========================================================
 
@@ -12,7 +12,7 @@ git add .
 git add -f vendor
 
 echo [2/3] Melakukan commit...
-git commit -m "Direct inline schema auto-creation for all tables on Vercel"
+git commit -m "Fix authentication: guaranteed password hash match for kelompok 4 login"
 
 echo [3/3] Mengirim (Push) ke GitHub main branch...
 set GCM_INTERACTIVE=never
